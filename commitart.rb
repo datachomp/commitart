@@ -20,8 +20,8 @@ module CommitArt
   # author of the commits that are generated. These need to be set to the
   # email and username of the GitHub account to which you wish the commits
   # to be attributed.
-  EMAIL = "commitart1337@gmail.com"
-  USERNAME = "commitart"
+  EMAIL = "your email"
+  USERNAME = "your username"
 
   # create_commit_art
   #
@@ -89,7 +89,7 @@ module CommitArt
     end
     # get the stuff we need from the repo (head commit, tree, etc.)
     curr_ref = repo.head.name
-    curr_commit = repo.lookup(repo.head.target)
+    curr_commit = repo.lookup(repo.head.target.oid)
 
     # create the author hash
     time = date.to_i
@@ -105,7 +105,7 @@ module CommitArt
 
       new_commit_id = Rugged::Commit.create(repo,
                             :author => author,
-                            :message => "CommitArt commit at #{Time.at(time)}.",
+                            :message => "Commit at #{Time.at(time)}.",
                             :committer => author,
                             :parents => [curr_commit.oid],
                             :tree => curr_tree,
